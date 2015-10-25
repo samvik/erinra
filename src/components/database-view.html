@@ -1,0 +1,40 @@
+<h1>Database: {{title}}</h1>
+
+<div *ng-if="store.database">
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Username</th>
+          <th>Password</th>
+          <th>Url</th>
+          <th>Note</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ng-for="#password of store.database.passwords; #i = index">
+          <td>{{password.title}}</td>
+          <td>{{password.username}}</td>
+          <td>
+            <button *ng-if="visiblePassword!=i" class="btn btn-link" (click)="togglePasswordVisible(i)">show</button>
+            <button *ng-if="visiblePassword==i" class="btn btn-link" (click)="togglePasswordVisible(-1)">hide</button>
+            {{password.password | maskpassword:visiblePassword==i}}
+          </td>
+          <td><a href="{{password.url}}">{{password.url}}</a></td>
+          <td>{{password.note}}</td>
+          <td>
+            <a [router-link]="['/PasswordEdit', {db: title, id: i}]" class="btn btn-link">edit</a>
+            <button (click)="delete(i)" class="btn btn-link">delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <a [router-link]="['/PasswordAdd', {db: title}]" class="btn btn-default">Add</a>
+
+</div>
+<div *ng-if="!store.database">Loading...</div>
+<div *ng-if="errorMessage">{{errorMessage}}</div>

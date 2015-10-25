@@ -8,7 +8,7 @@ import { RouterLink, Router, Location } from 'angular2/router';
   templateUrl: 'src/shared/navbar.html',
   directives: [RouterLink, NgClass]
 })
-export class NavbarComponent {
+export class Navbar {
   router : Router;
   location : Location;
 

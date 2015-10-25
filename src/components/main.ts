@@ -1,39 +1,30 @@
 
-import { Component, View } from 'angular2/angular2';
-import { RouteConfig } from 'angular2/router';
+import { Component, View, bind } from 'angular2/angular2';
+import { RouteConfig, Route, Redirect, ROUTER_DIRECTIVES } from 'angular2/router';
 
-import { GDrive } from '../utils/gdrive';
+import { Navbar } from '../shared/navbar';
+
+import { GDriveStore } from '../utils/gdrive-store';
+
+import { DatabaseList } from './database-list';
+import { DatabaseView } from './database-view';
+import { PasswordEdit } from './password-edit';
 
 @Component({
-  selector: 'test-app'
+  selector: 'main',
+  viewProviders: [GDriveStore]
 })
 @View({
-  templateUrl: 'src/components/main.html'
+  templateUrl: 'src/components/main.html',
+  directives: [Navbar, ROUTER_DIRECTIVES]
 })
+@RouteConfig([
+  new Route({ path: '/', as: "DatabaseList", component: DatabaseList }),
+  new Route({ path: '/:db', as: "DatabaseView", component: DatabaseView }),
+  new Route({ path: '/:db/:id', as: "PasswordEdit", component: PasswordEdit }),
+  new Route({ path: '/:db/add', as: "PasswordAdd", component: PasswordEdit }),
+])
 export class Main {
-  name: string;
-
-  gdrive : GDrive = new GDrive();
-
   constructor(){
-    this.name = 'Angular2';
-    setTimeout(() => {
-      this.name = 'Angular2!!!'
-    },1500);
   }
-
-  test() {
-    this.gdrive.authenticate().then(() => {
-      console.log("Resolved");
-      this.name = "Auth!!!!!";
-    });
-  }
-
-  list() {
-    this.gdrive.listFiles().then((resp) => {
-      console.log(resp);
-      this.name = "List!!!!";
-    })
-  }
-
 }

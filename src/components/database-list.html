@@ -1,0 +1,25 @@
+<h1>Database List</h1>
+
+<div *ng-if="!store.isAuthenticated"><button (click)="_authenticate()">Authenticate</button></div>
+<div *ng-if="store.isAuthenticated">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Database</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ng-for="#db of store.databaseList">
+        <td>  <a [router-link]="['/DatabaseView', {db: db.title}]" class="link">{{db.title}}</a></td>
+        <td>
+          <button (click)="delete(db)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <create-database/>
+
+</div>
