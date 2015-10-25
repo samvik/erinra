@@ -1,0 +1,21 @@
+
+
+
+<navbar></navbar>
+
+<div class="container">
+
+  <div class="body">
+    <h4>Hello {{name}} {{gdrive.isAuthenticated}}</h4><button (click)="test()">Auth</button><button (click)="list()">List Files</button>
+    <!-- <div *ng-if="store.isOpen()"> -->
+      <router-outlet></router-outlet>
+    <!-- </div> -->
+
+    <!-- <div *ng-if="!store.isOpen()">
+      <unlock-database></unlock-database>
+    </div> -->
+
+    <!-- <h1>Bootstrap starter template</h1>
+    <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p> -->
+  </div>
+</div>

@@ -1,0 +1,38 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "isolatedModules": false,
+        "jsx": "react",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "declaration": false,
+        "noImplicitAny": false,
+        "removeComments": true,
+        "noLib": false,
+        "preserveConstEnums": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "outDir": "build",
+        "sourceMap": true
+    },
+    "filesGlob": [
+        "!node_modules/**/*.ts",
+        "!jspm_packages/**/*.ts",
+        "jspm_packages/**/bundles/**/*.d.ts",
+        "src/**/*.ts",
+        "typings/**/*.d.ts"
+    ],
+    "files": [
+        "jspm_packages/npm/angular2@2.0.0-alpha.44/bundles/typings/angular2/angular2.d.ts",
+        "jspm_packages/npm/angular2@2.0.0-alpha.44/bundles/typings/angular2/http.d.ts",
+        "jspm_packages/npm/angular2@2.0.0-alpha.44/bundles/typings/angular2/router.d.ts",
+        "jspm_packages/npm/angular2@2.0.0-alpha.44/bundles/typings/angular2/testing.d.ts",
+        "jspm_packages/npm/angular2@2.0.0-alpha.44/bundles/typings/es6-shim/es6-shim.d.ts",
+        "jspm_packages/npm/angular2@2.0.0-alpha.44/bundles/typings/jasmine/jasmine.d.ts",
+        "src/bootstrap.ts",
+        "src/components/main.ts",
+        "src/shared/navbar.ts",
+        "src/utils/gdrive.ts"
+    ]
+}
