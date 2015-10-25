@@ -1,0 +1,26 @@
+{
+  "name": "passwd",
+  "version": "1.0.0",
+  "description": "A simple but secure password manager.",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Björn Samvik",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "http-server": "^0.8.5",
+    "jspm": "^0.16.13"
+  },
+  "jspm": {
+    "dependencies": {
+      "angular2": "npm:angular2@^2.0.0-alpha.44",
+      "es6-shim": "github:es-shims/es6-shim@^0.33.8",
+      "reflect-metadata": "npm:reflect-metadata@^0.1.2",
+      "zone.js": "npm:zone.js@^0.5.8"
+    },
+    "devDependencies": {
+      "typescript": "npm:typescript@^1.6.2"
+    }
+  }
+}
