@@ -6,23 +6,29 @@ import { Navbar } from '../shared/navbar';
 
 import { GDriveStore } from '../utils/gdrive-store';
 
+import { Dashboard } from './dashboard';
+import { Authenticate } from './authenticate';
 import { DatabaseList } from './database-list';
 import { DatabaseView } from './database-view';
 import { PasswordEdit } from './password-edit';
 
+import { AuthenticateRouterOutlet } from '../utils/authenticate-router-outlet';
 @Component({
   selector: 'main',
   viewProviders: [GDriveStore]
 })
 @View({
   templateUrl: 'src/components/main.html',
-  directives: [Navbar, ROUTER_DIRECTIVES]
+  directives: [Navbar, AuthenticateRouterOutlet]
 })
 @RouteConfig([
-  new Route({ path: '/', as: "DatabaseList", component: DatabaseList }),
-  new Route({ path: '/:db', as: "DatabaseView", component: DatabaseView }),
-  new Route({ path: '/:db/:id', as: "PasswordEdit", component: PasswordEdit }),
-  new Route({ path: '/:db/add', as: "PasswordAdd", component: PasswordEdit }),
+  new Route({ path: '/', as: "Dashboard", component: Dashboard }),
+  new Route({ path: '/authenticate', as: "Authenticate", component: Authenticate }),
+  new Route({ path: '/db', as: "DatabaseList", component: DatabaseList }),
+  new Route({ path: '/db/:db', as: "DatabaseView", component: DatabaseView }),
+  new Route({ path: '/db/:db/add', as: "PasswordAdd", component: PasswordEdit }),
+  new Route({ path: '/db/:db/:id', as: "PasswordEdit", component: PasswordEdit })
+
 ])
 export class Main {
   constructor(){
