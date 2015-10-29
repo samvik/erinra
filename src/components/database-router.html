@@ -1,0 +1,13 @@
+
+
+<router-outlet *ng-if="store.isAuthenticated"></router-outlet>
+
+<div *ng-if="!authInProgress">
+  <div *ng-if="!store.isAuthenticated">
+    <button (click)="authenticate()">Authenticate</button>
+  </div>
+</div>
+
+<div *ng-if="authInProgress">
+  Authenticating...
+</div>

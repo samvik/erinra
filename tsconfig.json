@@ -34,6 +34,7 @@
         "src/components/authenticate.ts",
         "src/components/dashboard.ts",
         "src/components/database-list.ts",
+        "src/components/database-router.ts",
         "src/components/database-view.ts",
         "src/components/main.ts",
         "src/components/password-edit.ts",

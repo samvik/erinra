@@ -1,8 +1,8 @@
 
-import { Component, View, NgIf, NgFor } from 'angular2/angular2';
+import { Component, View, CORE_DIRECTIVES } from 'angular2/angular2';
 import { RouteParams } from 'angular2/router';
 
-import { GDriveStore, DatabaseDescription } from '../utils/gdrive-store';
+import { GDriveStore, DatabaseDescription, Database } from '../utils/gdrive-store';
 import { RouterLink } from 'angular2/router';
 
 import { MaskPasswordPipe } from '../utils/mask-password-pipe';
@@ -12,47 +12,69 @@ import { MaskPasswordPipe } from '../utils/mask-password-pipe';
 })
 @View({
   templateUrl: 'src/components/database-view.html',
-  directives: [NgIf, NgFor, RouterLink],
+  directives: [CORE_DIRECTIVES, RouterLink],
   pipes: [MaskPasswordPipe]
 })
 export class DatabaseView {
   private title : string;
 
   private store: GDriveStore;
-  private errorMessage: string;
-  private visiblePassword: number = -1;
+
+  private visiblePasswords: Array<number> = [];
+
+  private errorMessage: string = "";
+
 
   public constructor(store: GDriveStore, params: RouteParams) {
     this.store = store;
     this.title = params.get("db");
 
+    if(!this.store.database || this.store.database.name != this.title) {
+      this.store.unloadDatabase();
 
+      this.errorMessage = "";
 
-    if(!this.store.isAuthenticated) {
-      this.errorMessage = "Authentication needed.";
-    }
-    else if(!this.store.database || this.store.database.name != this.title) {
-      this.store.listDatabases("title = '" + this.title + "'").then(
-        (result : Array<DatabaseDescription>) => {
-          if(result && result.length > 0) {
-            this.store.loadDatabase(result[0]);
+      this.store.listDatabases("title = '" + this.title + "'")
+        .then(
+          (result : Array<DatabaseDescription>) => {
+            if(result && result.length > 0) {
+              return result[0];
+            }
+            throw "Database not found.";
+          })
+        .then(
+          (db: DatabaseDescription) => {
+            return this.store.loadDatabase(db);
+          })
+        .then(
+          (db: Database) => {
+          },
+          (error) => {
+            this.errorMessage = error;
+            console.log(error);
           }
-          else {
-            this.errorMessage = "Database not found.";
-          }
-        }
-      );
+        );
+
     }
   }
 
-  public delete(index: number) : void {
+  private delete(index: number): void {
     this.store.database.passwords.splice(index, 1);
     this.store.save();
   }
 
+  private togglePasswordVisible(index: number): void {
+    var pos: number = this.visiblePasswords.indexOf(index);
+    if(pos == -1) {
+      this.visiblePasswords.push(index);
+    }
+    else {
+      this.visiblePasswords.splice(pos, 1);
+    }
+  }
 
-  private togglePasswordVisible(index : number) : void {
-    this.visiblePassword = index;
+  private isVisible(i: number): boolean {
+    return this.visiblePasswords.indexOf(i) >= 0;
   }
 
 }

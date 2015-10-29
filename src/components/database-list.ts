@@ -1,5 +1,5 @@
 
-import { Component, View, NgIf, NgFor } from 'angular2/angular2';
+import { Component, View, CORE_DIRECTIVES } from 'angular2/angular2';
 import { RouterLink} from 'angular2/router';
 import { GDriveStore, DatabaseDescription } from '../utils/gdrive-store';
 import { CreateDatabase } from '../shared/create-database';
@@ -9,22 +9,28 @@ import { CreateDatabase } from '../shared/create-database';
 })
 @View({
   templateUrl: 'src/components/database-list.html',
-  directives: [NgIf, NgFor, CreateDatabase, RouterLink]
+  directives: [CORE_DIRECTIVES, CreateDatabase, RouterLink]
 })
 export class DatabaseList {
-  store : GDriveStore;
+  private loading: boolean = true;
+  private errorMessage: string = "";
 
-  public constructor(store : GDriveStore) {
-    this.store = store;
-    this.store.authenticate(true).then(() => this.store.loadDatabaseList());
+  public constructor(private store : GDriveStore) {
   }
 
-  private _authenticate() : void {
-    this.store.authenticate(false).then(() => this.store.loadDatabaseList());
-  }
+  private afterViewInit() : void {
+    this.loading = true;
+    this.errorMessage = "";
 
-  private _new() : void {
-
+    this.store.loadDatabaseList().then(
+      (resp) => {
+        this.loading = false
+      },
+      (error) => {
+        this.loading = false;
+        this.errorMessage = error;
+        console.log(error);
+      });
   }
 
   private delete(desc : DatabaseDescription) : void {

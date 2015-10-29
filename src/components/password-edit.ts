@@ -16,7 +16,7 @@ export class PasswordEdit {
   id: number;
   database : string;
 
-  constructor(store : GDriveStore, router : Router, params : RouteParams) {
+  public constructor(store : GDriveStore, router : Router, params : RouteParams) {
     this.store = store;
     this.router = router;
 
@@ -28,7 +28,7 @@ export class PasswordEdit {
     }
   }
 
-  onSubmit(): void {
+  private onSubmit(): void {
     if(this.id == null) {
       this.store.database.passwords.push(this.model);
     }
@@ -38,10 +38,10 @@ export class PasswordEdit {
 
     this.store.save();
 
-    this.router.navigate(["/DatabaseView", {db: this.database}]);
+    this.router.navigate(["../DatabaseView", {db: this.database}]);
   }
 
   private cancel(): void {
-    this.router.navigate(["/DatabaseView", {db: this.database}]);
+    this.router.navigate(["../DatabaseView", {db: this.database}]);
   }
 }

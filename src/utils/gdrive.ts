@@ -1,4 +1,5 @@
-import '/gapi.js';
+//import '/gapi.js';
+
 declare var gapi : any;
 
 export class GDrive {

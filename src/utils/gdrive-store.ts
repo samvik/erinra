@@ -41,8 +41,9 @@ export class GDriveStore {
     });
   }
 
-  public loadDatabaseList() : void {
-    this._gdrive.listAllFiles().then((resp : any) => {
+  public loadDatabaseList() : Promise<any> {
+    this.databaseList = [];
+    return this._gdrive.listAllFiles().then((resp : any) => {
       var databaseList : Array<DatabaseDescription> = [];
       if(resp && resp.items) {
         for(var item of resp.items) {
@@ -50,6 +51,7 @@ export class GDriveStore {
         }
       }
       this.databaseList = databaseList;
+      return this.databaseList;
     });
   }
 
@@ -92,6 +94,10 @@ export class GDriveStore {
       this.databaseDesc = desc;
       return this.database;
     });
+  }
+
+  public unloadDatabase(): void {
+    this.database = null;
   }
 
   public save() : Promise<DatabaseDescription> {

@@ -18,14 +18,14 @@
           <td>{{password.title}}</td>
           <td>{{password.username}}</td>
           <td>
-            <button *ng-if="visiblePassword!=i" class="btn btn-link" (click)="togglePasswordVisible(i)">show</button>
-            <button *ng-if="visiblePassword==i" class="btn btn-link" (click)="togglePasswordVisible(-1)">hide</button>
-            {{password.password | maskpassword:visiblePassword==i}}
+            <button *ng-if="!isVisible(i)" class="btn btn-link" (click)="togglePasswordVisible(i)">show</button>
+            <button *ng-if="isVisible(i)" class="btn btn-link" (click)="togglePasswordVisible(i)">hide</button>
+            {{password.password | maskpassword:isVisible(i)}}
           </td>
           <td><a href="{{password.url}}">{{password.url}}</a></td>
           <td>{{password.note}}</td>
           <td>
-            <a [router-link]="['/PasswordEdit', {db: title, id: i}]" class="btn btn-link">edit</a>
+            <a [router-link]="['../PasswordEdit', {db: title, id: i}]" class="btn btn-link">edit</a>
             <button (click)="delete(i)" class="btn btn-link">delete</button>
           </td>
         </tr>
@@ -33,7 +33,7 @@
     </table>
   </div>
 
-  <a [router-link]="['/PasswordAdd', {db: title}]" class="btn btn-default">Add</a>
+  <a [router-link]="['../PasswordAdd', {db: title}]" class="btn btn-default">Add</a>
 
 </div>
 <div *ng-if="!store.database">Loading...</div>
