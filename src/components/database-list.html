@@ -13,12 +13,12 @@
       </thead>
       <tbody>
         <tr *ng-for="#db of store.databaseList">
-          <td>  <a [router-link]="['../DatabaseView', {db: db.title}]" class="link">{{db.title}}</a></td>
-          <td>
-
-
+          <td class="col-md-11">
+            <a [router-link]="['../DatabaseView', {db: db.title}]" class="link">{{db.title}}</a>
+          </td>
+          <td class="col-md-1" >
             <button type="submit" class="btn btn-link" (click)="delete(db)" title="Delete database">
-                <i class="fa fa-remove fa-1x fa-fw"></i>
+              <i class="fa fa-remove fa-1x fa-fw"></i>
             </button>
           </td>
         </tr>

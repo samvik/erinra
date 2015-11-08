@@ -11,21 +11,22 @@ import { Password } from '../utils/store';
   directives: [FORM_DIRECTIVES, NgIf]
 })
 export class PasswordEdit {
-  store : GDriveStore;
-  router : Router;
   model : Password = <Password>{};
   id: number;
   database : string;
 
-  public constructor(store : GDriveStore, router : Router, params : RouteParams) {
-    this.store = store;
-    this.router = router;
+  databaseIsOpen: boolean = false;
 
+  public constructor(private store : GDriveStore, private router : Router, private params : RouteParams) {
     this.database = params.get("db");
-    var id = params.get("id");
-    if(id != null) {
-      this.id = +id;
-      this.model = this.store.database.passwords[this.id];
+    if(store && store.database && store.database.name == this.database) {
+      this.databaseIsOpen = true;
+
+      var id = params.get("id");
+      if(id != null) {
+        this.id = +id;
+        this.model = this.store.database.passwords[this.id];
+      }
     }
   }
 

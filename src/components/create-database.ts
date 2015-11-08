@@ -1,5 +1,5 @@
-import { Component, View, FORM_DIRECTIVES} from 'angular2/angular2';
-import { Router } from 'angular2/router';
+import { Component, View, NgIf, FORM_DIRECTIVES} from 'angular2/angular2';
+import { Router, RouterLink } from 'angular2/router';
 import { GDriveStore } from '../utils/gdrive-store';
 class Model {
   name : string;
@@ -11,14 +11,13 @@ class Model {
 })
 @View({
   templateUrl: 'src/components/create-database.html',
-  directives: [FORM_DIRECTIVES]
+  directives: [FORM_DIRECTIVES, NgIf, RouterLink]
 })
 export class CreateDatabase {
 
   private model : Model = new Model();
 
   public constructor(private store : GDriveStore, private router: Router) {
-    this.store = store;
   }
 
   public create(): void {
