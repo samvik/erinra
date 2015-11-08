@@ -31,8 +31,13 @@ export class DatabaseRouter {
   private afterViewInit() {
     if(!this.store.isAuthenticated) {
       this.store.authenticate(true).then(
-        () => { this.authInProgress = false; },
-        (error) => { this.authInProgress = false; }
+        () => {
+          this.authInProgress = false;
+        },
+        (error) => {
+          console.log(error);
+          this.authInProgress = false;
+        }
       );
     }
     else {

@@ -1,17 +1,13 @@
 <navbar></navbar>
-
 <div class="container">
-
   <div class="body">
-    <!-- <div *ng-if="store.isOpen()"> -->
-      <router-outlet></router-outlet>
-    <!-- </div> -->
-
-    <!-- <div *ng-if="!store.isOpen()">
-      <unlock-database></unlock-database>
-    </div> -->
-
-    <!-- <h1>Bootstrap starter template</h1>
-    <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p> -->
+    <router-outlet></router-outlet>
   </div>
+
+  <div id="footer">
+    <div class="container text-center">
+      <p class="text-muted credit">&copy; Björn Samvik 2015</p>
+    </div>
+  </div>
+
 </div>

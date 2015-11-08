@@ -1,6 +1,5 @@
 
 import { Component, View, NgIf, NgFor } from 'angular2/angular2';
-import { RouterLink } from 'angular2/router';
 import { GDriveStore } from '../utils/gdrive-store';
 
 
@@ -8,12 +7,11 @@ import { GDriveStore } from '../utils/gdrive-store';
   selector: 'database-list'
 })
 @View({
-  templateUrl: 'src/components/dashboard.html',
-  directives: [RouterLink]
+  templateUrl: 'src/components/lock.html'
 })
-export class Dashboard {
-
-  public constructor() {
-
+export class Lock {
+  public constructor(store : GDriveStore) {
+    console.log("Databases locked!");
+    store.unloadDatabase();
   }
 }

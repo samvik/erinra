@@ -1,24 +1,9 @@
 import { Injectable } from 'angular2/angular2';
 import { GDrive } from './gdrive';
 
-export interface Password {
-  title: string;
-  username: string;
-  password: string;
-  url: string;
-  note: string;
-}
+import {Database, EncryptedDatabase, DatabaseDescription, Password} from  './store';
 
-export interface Database {
-  name: string;
-  passwords: Array<Password>;
-}
-
-export interface DatabaseDescription {
-  id: string;
-  title: string;
-  downloadUrl: string;
-}
+import {Crypto} from './crypto';
 
 @Injectable()
 export class GDriveStore {
@@ -30,6 +15,7 @@ export class GDriveStore {
   public database: Database;
   public databaseDesc: DatabaseDescription;
 
+  public key: any;
 
   public constructor() {
   }
@@ -62,7 +48,7 @@ export class GDriveStore {
   }
 
   public createDatabase(name: string, password: string) : Promise<DatabaseDescription> {
-    var db = {name: name, passwords: [
+    var db : Database = {name: name, passwords: [
       {  title: "facebook",
         username: "netbear",
         password: "My super secret password!",
@@ -70,8 +56,11 @@ export class GDriveStore {
         note: "This is my facebook credentials."}
     ]};
 
-    return this._gdrive.createFile(name, JSON.stringify(db)).then((resp) => {
-      console.log(resp);
+    var crypto : Crypto = new Crypto;
+    var key = crypto.generateKey(password);
+    var encDatabase : EncryptedDatabase = crypto.encryptPasswordDatabase(db, key);
+
+    return this._gdrive.createFile(name, JSON.stringify(encDatabase)).then((resp) => {
       this.databaseList.push(resp);
       return resp;
     });
@@ -79,29 +68,42 @@ export class GDriveStore {
 
   public deleteDatabase(desc: DatabaseDescription) : Promise<void> {
     return this._gdrive.deleteFile(desc.id).then((resp) => {
-      console.log("Delete: ", resp);
       this.databaseList = this.databaseList.filter((item) => {
         return item.id != desc.id;
       });
     });
   }
 
-  public loadDatabase(desc: DatabaseDescription) : Promise<Database> {
+  public loadDatabase(desc: DatabaseDescription, password: string) : Promise<Database> {
     this.database = null;
 
     return this._gdrive.downloadFile(desc.downloadUrl).then((data) => {
-      this.database = JSON.parse(data);
+      var encDatabase: EncryptedDatabase = JSON.parse(data);
       this.databaseDesc = desc;
-      return this.database;
+
+      var crypto : Crypto = new Crypto;
+      this.key = crypto.generateKey(password);
+      var database: Database = crypto.decryptPasswordDatabase(encDatabase, this.key);
+      if(database != null) {
+        this.database = database;
+        return this.database;
+      }
+      else {
+        return Promise.reject<Database>("Decryption failed, did you enter the correct password?");
+      }
     });
   }
 
   public unloadDatabase(): void {
     this.database = null;
+    this.databaseDesc = null;
+    this.key = null;
   }
 
   public save() : Promise<DatabaseDescription> {
-    return this._gdrive.updateFile(this.databaseDesc.id, this.databaseDesc, JSON.stringify(this.database));
+    var crypto : Crypto = new Crypto;
+    var encDatabase : EncryptedDatabase = crypto.encryptPasswordDatabase(this.database, this.key);
+    return this._gdrive.updateFile(this.databaseDesc.id, this.databaseDesc, JSON.stringify(encDatabase));
   }
 
 }

@@ -24,6 +24,8 @@ System.config({
     "bootstrap": "github:twbs/bootstrap@3.3.5",
     "css": "github:systemjs/plugin-css@0.1.19",
     "es6-shim": "github:es-shims/es6-shim@0.33.8",
+    "font-awesome": "npm:font-awesome@4.4.0",
+    "node-forge": "npm:node-forge@0.6.37",
     "reflect-metadata": "npm:reflect-metadata@0.1.2",
     "typescript": "npm:typescript@1.6.2",
     "zone.js": "npm:zone.js@0.5.8",
@@ -215,6 +217,9 @@ System.config({
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "create-hash": "npm:create-hash@1.1.2",
       "crypto": "github:jspm/nodelibs-crypto@0.1.0"
+    },
+    "npm:font-awesome@4.4.0": {
+      "css": "github:systemjs/plugin-css@0.1.19"
     },
     "npm:hash.js@1.0.3": {
       "inherits": "npm:inherits@2.0.1"

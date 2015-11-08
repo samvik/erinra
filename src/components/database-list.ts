@@ -1,15 +1,15 @@
 
 import { Component, View, CORE_DIRECTIVES } from 'angular2/angular2';
 import { RouterLink} from 'angular2/router';
-import { GDriveStore, DatabaseDescription } from '../utils/gdrive-store';
-import { CreateDatabase } from '../shared/create-database';
+import { GDriveStore } from '../utils/gdrive-store';
+import { DatabaseDescription } from '../utils/store';
 
 @Component({
   selector: 'database-list'
 })
 @View({
   templateUrl: 'src/components/database-list.html',
-  directives: [CORE_DIRECTIVES, CreateDatabase, RouterLink]
+  directives: [CORE_DIRECTIVES, RouterLink]
 })
 export class DatabaseList {
   private loading: boolean = true;
