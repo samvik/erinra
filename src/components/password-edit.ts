@@ -46,4 +46,16 @@ export class PasswordEdit {
   private cancel(): void {
     this.router.navigate(["../DatabaseView", {db: this.database}]);
   }
+
+  private generatePassword(): void {
+    var chars: string = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890/\\-_?!.,@#*|<%$+";
+    var password: string = "";
+
+    for(var i = 0; i < 12; ++i) {
+      var n = Math.random()*chars.length;
+      password = password.concat(chars.charAt(n));
+    }
+
+    this.model.password = password;
+  }
 }
