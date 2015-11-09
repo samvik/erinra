@@ -21,7 +21,8 @@
       "font-awesome": "npm:font-awesome@^4.4.0",
       "node-forge": "npm:node-forge@^0.6.37",
       "reflect-metadata": "npm:reflect-metadata@^0.1.2",
-      "zone.js": "npm:zone.js@^0.5.8"
+      "zone.js": "npm:zone.js@^0.5.8",
+      "zxcvbn": "npm:zxcvbn@^4.1.1"
     },
     "devDependencies": {
       "typescript": "npm:typescript@^1.6.2"

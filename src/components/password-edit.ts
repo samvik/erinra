@@ -1,14 +1,16 @@
-import { Component, View, FORM_DIRECTIVES, NgIf, Inject} from 'angular2/angular2';
+import { Component, View, FORM_DIRECTIVES, NgIf, NgClass, Inject} from 'angular2/angular2';
 import { Router, RouteParams } from 'angular2/router';
 import { GDriveStore } from '../utils/gdrive-store';
 import { Password } from '../utils/store';
+
+import { PasswordStrengthBar } from '../shared/password-strength-bar';
 
 @Component({
   selector: 'password-edit'
 })
 @View({
   templateUrl: 'src/components/password-edit.html',
-  directives: [FORM_DIRECTIVES, NgIf]
+  directives: [FORM_DIRECTIVES, NgIf, NgClass, PasswordStrengthBar]
 })
 export class PasswordEdit {
   model : Password = <Password>{};

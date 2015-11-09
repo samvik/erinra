@@ -23,7 +23,8 @@
             <th>Title</th>
             <th>Username</th>
             <th>Password</th>
-            <th>Url</th>
+            <th>Strength</th>
+            <!-- <th>Url</th> -->
             <th>Note</th>
             <th>Actions</th>
           </tr>
@@ -40,9 +41,13 @@
               </button>
               {{password.password | maskpassword:isVisible(i)}}
             </td>
-            <td><a href="{{password.url}}">{{password.url}}</a></td>
+            <td><password-strength-bar [password]="password.password" /></td>
+            <!-- <td><a href="{{password.url}}">{{password.url}}</a></td> -->
             <td>{{password.note}}</td>
             <td>
+              <a href="{{password.url}}" class="btn btn-link">
+                <i class="fa fa-link fa-1x fa-fw" title="{{password.url}}"></i>
+              </a>
               <a [router-link]="['../PasswordEdit', {db: title, id: i}]" class="btn btn-link">
                 <i class="fa fa-edit fa-1x fa-fw" title="Edit entry"></i>
               </a>

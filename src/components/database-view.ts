@@ -9,6 +9,7 @@ import { RouterLink } from 'angular2/router';
 import { MaskPasswordPipe } from '../utils/mask-password-pipe';
 
 import { UnlockDatabase } from '../shared/unlock-database';
+import { PasswordStrengthBar } from '../shared/password-strength-bar';
 
 enum StateEnum {
   NOT_LOADED,
@@ -23,7 +24,7 @@ enum StateEnum {
 })
 @View({
   templateUrl: 'src/components/database-view.html',
-  directives: [CORE_DIRECTIVES, RouterLink, UnlockDatabase],
+  directives: [CORE_DIRECTIVES, RouterLink, UnlockDatabase, PasswordStrengthBar],
   pipes: [MaskPasswordPipe]
 })
 export class DatabaseView {

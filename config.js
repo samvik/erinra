@@ -29,6 +29,7 @@ System.config({
     "reflect-metadata": "npm:reflect-metadata@0.1.2",
     "typescript": "npm:typescript@1.6.2",
     "zone.js": "npm:zone.js@0.5.8",
+    "zxcvbn": "npm:zxcvbn@4.1.1",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
     },
@@ -314,6 +315,9 @@ System.config({
     },
     "npm:zone.js@0.5.8": {
       "es6-promise": "npm:es6-promise@3.0.2",
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "npm:zxcvbn@4.1.1": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     }
   }

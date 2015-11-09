@@ -13,3 +13,7 @@ body {
 .navbar-font {
     color: #A0A0A0;
 }
+
+.progress {
+    margin-bottom: 0 !important;
+}

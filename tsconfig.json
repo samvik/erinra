@@ -41,6 +41,7 @@
         "src/components/main.ts",
         "src/components/password-edit.ts",
         "src/shared/navbar.ts",
+        "src/shared/password-strength-bar.ts",
         "src/shared/unlock-database.ts",
         "src/utils/crypto.ts",
         "src/utils/gdrive-store.ts",
