@@ -42,11 +42,14 @@
         "src/components/password-edit.ts",
         "src/shared/navbar.ts",
         "src/shared/password-strength-bar.ts",
+        "src/shared/search-box.ts",
         "src/shared/unlock-database.ts",
         "src/utils/crypto.ts",
+        "src/utils/filter-pipe.ts",
         "src/utils/gdrive-store.ts",
         "src/utils/gdrive.ts",
         "src/utils/mask-password-pipe.ts",
+        "src/utils/order-by-pipe.ts",
         "src/utils/store.ts"
     ]
 }

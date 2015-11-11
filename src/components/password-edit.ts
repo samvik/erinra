@@ -27,13 +27,18 @@ export class PasswordEdit {
       var id = params.get("id");
       if(id != null) {
         this.id = +id;
-        this.model = this.store.database.passwords[this.id];
+
+        this.model = this.store.database.passwords.find((element, index, array) => {
+          return element.id == this.id;
+        });
       }
+
     }
   }
 
   private onSubmit(): void {
     if(this.id == null) {
+      this.model.id = Date.now();
       this.store.database.passwords.push(this.model);
     }
     else {

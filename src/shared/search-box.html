@@ -1,0 +1,7 @@
+
+
+<div class="btn-group">
+  <input id="searchinput" type="search" class="form-control" placeholder="Filter"
+  (keyup)="onKey($event)" [(ng-model)]="value" />
+  <span id="searchclear" class="glyphicon glyphicon-remove-circle" (click)="clear()"></span>
+</div>

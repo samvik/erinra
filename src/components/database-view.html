@@ -1,5 +1,16 @@
 <h1>Database: {{title}}</h1>
 
+<div *ng-if="state == State.UNLOCKED" class="row" style="margin-top:20px;margin-bottom:20px;">
+  <div class="col-md-6">
+    <search-box (changed)="filterChanged($event)"></search-box>
+  </div>
+  <div class="col-md-6">
+    <a [router-link]="['../PasswordAdd', {db: title}]" class="btn btn-primary pull-right">
+      <i class="fa fa-plus-circle fa-1x fa-fw" title="Add entry"></i> Add
+    </a>
+  </div>
+</div>
+
 <div [ng-switch]="state">
   <template [ng-switch-when]="State.ERROR">
     <span>Error: {{errorMessage}}</span>
@@ -17,51 +28,42 @@
   </template>
   <template [ng-switch-when]="State.UNLOCKED">
     <div class="table-responsive">
-      <table class="table table-striped">
+      <table class="table table-striped table-condensed">
         <thead>
           <tr>
-            <th>Title</th>
-            <th>Username</th>
-            <th>Password</th>
-            <th>Strength</th>
-            <!-- <th>Url</th> -->
-            <th>Note</th>
-            <th>Actions</th>
+            <th class="col-sm-2">Title</th>
+            <th class="col-sm-2">Username</th>
+            <th class="col-sm-2">Password</th>
+            <th class="col-sm-1">Strength</th>
+            <th class="col-sm-4">Note</th>
+            <th class="col-sm-1"></th>
           </tr>
         </thead>
         <tbody>
-          <tr *ng-for="#password of store.database.passwords; #i = index">
+          <tr *ng-for="#password of store.database.passwords | filter:filterExpression:filterComparator | orderBy:'title'">
             <td>{{password.title}}</td>
             <td>{{password.username}}</td>
             <td>
-
-              <button type="submit" class="btn btn-link" (click)="togglePasswordVisible(i)" >
-                  <i *ng-if="!isVisible(i)" class="fa fa-eye fa-1x fa-fw" title="Show password"></i>
-                  <i *ng-if="isVisible(i)" class="fa fa-eye-slash fa-1x fa-fw" title="Hide password"></i>
-              </button>
-              {{password.password | maskpassword:isVisible(i)}}
+              <div class="btn-group btn-group-xs" role="group">
+                <button type="submit" class="action action-link" (click)="togglePasswordVisible(password.id)" >
+                    <i *ng-if="!isVisible(password.id)" class="fa fa-eye fa-1x fa-fw" title="Show password"></i>
+                    <i *ng-if="isVisible(password.id)" class="fa fa-eye-slash fa-1x fa-fw" title="Hide password"></i>
+                </button>
+              </div>
+              {{password.password | maskpassword:isVisible(password.id)}}
             </td>
             <td><password-strength-bar [password]="password.password" /></td>
-            <!-- <td><a href="{{password.url}}">{{password.url}}</a></td> -->
             <td>{{password.note}}</td>
-            <td>
-              <a href="{{password.url}}" class="btn btn-link">
-                <i class="fa fa-link fa-1x fa-fw" title="{{password.url}}"></i>
-              </a>
-              <a [router-link]="['../PasswordEdit', {db: title, id: i}]" class="btn btn-link">
-                <i class="fa fa-edit fa-1x fa-fw" title="Edit entry"></i>
-              </a>
-              <button type="submit" class="btn btn-link" (click)="delete(i)" >
-                  <i class="fa fa-remove fa-1x fa-fw" title="Remove entry"></i>
-              </button>
+            <td class="right">
+                <a href="{{password.url}}" class="action action-link"><i class="fa fa-link fa-1x fa-fw" title="{{password.url}}"></i></a>
+                <a [router-link]="['../PasswordEdit', {db: title, id: password.id}]" class="action action-link"><i class="fa fa-edit fa-1x fa-fw" title="Edit entry"></i></a>
+                <button type="submit" (click)="delete(password.id)" class="action action-danger">
+                    <i class="fa fa-remove fa-1x fa-fw" title="Remove entry"></i>
+                </button>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-
-    <a [router-link]="['../PasswordEdit', {db: title, id: i}]" class="btn btn-primary">
-      <i class="fa fa-plus-circle fa-1x fa-fw" title="Add entry"></i> Add
-    </a>
   </template>
 </div>

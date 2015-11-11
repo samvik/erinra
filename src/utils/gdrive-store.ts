@@ -49,11 +49,13 @@ export class GDriveStore {
 
   public createDatabase(name: string, password: string) : Promise<DatabaseDescription> {
     var db : Database = {name: name, passwords: [
-      {  title: "facebook",
-        username: "netbear",
-        password: "My super secret password!",
-        url: "https://facebook.com",
-        note: "This is my facebook credentials."}
+      {
+        id: Date.now(),
+        title: "example",
+        username: "erinra",
+        password: "my_password",
+        url: "https://erinra.samvik.se",
+        note: "I use erinra to store all my passwords."}
     ]};
 
     var crypto : Crypto = new Crypto;

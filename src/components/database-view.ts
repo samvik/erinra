@@ -7,9 +7,12 @@ import { DatabaseDescription, Database } from '../utils/store';
 import { RouterLink } from 'angular2/router';
 
 import { MaskPasswordPipe } from '../utils/mask-password-pipe';
+import { FilterPipe } from '../utils/filter-pipe';
+import { OrderByPipe } from '../utils/order-by-pipe';
 
 import { UnlockDatabase } from '../shared/unlock-database';
 import { PasswordStrengthBar } from '../shared/password-strength-bar';
+import { SearchBox } from '../shared/search-box';
 
 enum StateEnum {
   NOT_LOADED,
@@ -24,8 +27,10 @@ enum StateEnum {
 })
 @View({
   templateUrl: 'src/components/database-view.html',
-  directives: [CORE_DIRECTIVES, RouterLink, UnlockDatabase, PasswordStrengthBar],
-  pipes: [MaskPasswordPipe]
+  styleUrls: ['src/components/database-view.css'],
+  directives: [CORE_DIRECTIVES, RouterLink,
+    UnlockDatabase, PasswordStrengthBar, SearchBox],
+  pipes: [MaskPasswordPipe, FilterPipe, OrderByPipe]
 })
 export class DatabaseView {
   private title : string;
@@ -37,6 +42,8 @@ export class DatabaseView {
   private state: StateEnum = StateEnum.NOT_LOADED;
 
   private dbDesc: DatabaseDescription;
+
+  private filterExpression: string = "";
 
   public constructor(store: GDriveStore, params: RouteParams) {
     this.store = store;
@@ -84,23 +91,55 @@ export class DatabaseView {
       );
   }
 
-  private delete(index: number): void {
-    this.store.database.passwords.splice(index, 1);
-    this.store.save();
+  private getIndexFromId(id: number): number {
+    var index = -1;
+    for(var i = 0; i < this.store.database.passwords.length; ++i) {
+      if(this.store.database.passwords[i].id == id) {
+        index = i;
+        break;
+      }
+    }
+    return index;
   }
 
-  private togglePasswordVisible(index: number): void {
-    var pos: number = this.visiblePasswords.indexOf(index);
-    if(pos == -1) {
-      this.visiblePasswords.push(index);
-    }
-    else {
-      this.visiblePasswords.splice(pos, 1);
+  private delete(id: number): void {
+    var index = this.getIndexFromId(id);
+    if(index != -1) {
+      this.store.database.passwords.splice(index, 1);
+      this.store.save();
     }
   }
 
-  private isVisible(i: number): boolean {
-    return this.visiblePasswords.indexOf(i) >= 0;
+  private togglePasswordVisible(id: number): void {
+    var index = this.getIndexFromId(id);
+    if(index != -1) {
+      var pos: number = this.visiblePasswords.indexOf(index);
+      if(pos == -1) {
+        this.visiblePasswords.push(index);
+      }
+      else {
+        this.visiblePasswords.splice(pos, 1);
+      }
+    }
+  }
+
+  private isVisible(id: number): boolean {
+    var result = false;
+
+    var index = this.getIndexFromId(id);
+    if(index != -1) {
+      result = this.visiblePasswords.indexOf(index) >= 0;
+    }
+
+    return result;
+  }
+
+  private filterChanged(value: string): void {
+    this.filterExpression = value;
+  }
+
+  private filterComparator(item: any, expression: string): boolean {
+    return (item.title.toLowerCase().indexOf(expression) != -1);
   }
 
 }

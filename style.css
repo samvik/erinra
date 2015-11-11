@@ -10,10 +10,33 @@ body {
   text-align: center;
 }
 
+.right {
+  text-align: right;
+}
+
 .navbar-font {
     color: #A0A0A0;
 }
 
 .progress {
     margin-bottom: 0 !important;
+}
+
+.action {
+  background:none!important;
+  border:none;
+  padding:0!important;
+  font: inherit;
+  /*border is optional*/
+  /*border-bottom:1px solid #444; */
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.action-link {
+  color: #000000;
+}
+
+.action-danger {
+  color: #D9534F;
 }

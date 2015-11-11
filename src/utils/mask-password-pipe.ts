@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from 'angular2/angular2';
 
 @Pipe({
   name: 'maskpassword',
-  pure: false
+  pure: true
 })
 export class MaskPasswordPipe implements PipeTransform {
   public transform(value: any, args: any[] = []) : any {

@@ -1,23 +1,33 @@
 <h1>Database List</h1>
 
 <div *ng-if="store.isAuthenticated">
-
   <div *ng-if="loading">Loading...</div>
   <div *ng-if="!loading">
-    <table class="table table-striped">
+    <div class="row" style="margin-top:20px;margin-bottom:20px;">
+      <div class="col-md-6">
+        <search-box (changed)="filterChanged($event)"></search-box>
+      </div>
+      <div class="col-md-6">
+        <a [router-link]="['/DatabaseCreate']" class="btn btn-primary pull-right">
+          <i class="fa fa-plus-circle fa-1x fa-fw" title="Create database"></i> Create
+        </a>
+      </div>
+    </div>
+
+    <table class="table table-striped table-condensed">
       <thead>
         <tr>
           <th>Database</th>
-          <th>Actions</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ng-for="#db of store.databaseList">
+        <tr *ng-for="#db of store.databaseList | orderBy:'title' | filter:filterExpression:filterComparator">
           <td class="col-md-11">
             <a [router-link]="['../DatabaseView', {db: db.title}]" class="link">{{db.title}}</a>
           </td>
-          <td class="col-md-1" >
-            <button type="submit" class="btn btn-link" (click)="delete(db)" title="Delete database">
+          <td class="col-md-1 right" >
+            <button type="submit" class="action action-danger" (click)="delete(db)" title="Delete database">
               <i class="fa fa-remove fa-1x fa-fw"></i>
             </button>
           </td>
@@ -25,9 +35,6 @@
       </tbody>
     </table>
 
-    <a [router-link]="['/DatabaseCreate']" class="btn btn-primary">
-      <i class="fa fa-plus-circle fa-1x fa-fw" title="Create database"></i> Create
-    </a>
   </div>
 
 </div>
