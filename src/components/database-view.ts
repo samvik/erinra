@@ -13,6 +13,8 @@ import { OrderByPipe } from '../utils/order-by-pipe';
 import { UnlockDatabase } from '../shared/unlock-database';
 import { PasswordStrengthBar } from '../shared/password-strength-bar';
 import { SearchBox } from '../shared/search-box';
+import { Spinner } from '../shared/spinner';
+import { Alert } from '../shared/alert';
 
 enum StateEnum {
   NOT_LOADED,
@@ -28,7 +30,7 @@ enum StateEnum {
 @View({
   templateUrl: 'src/components/database-view.html',
   styleUrls: ['src/components/database-view.css'],
-  directives: [CORE_DIRECTIVES, RouterLink,
+  directives: [CORE_DIRECTIVES, RouterLink, Spinner, Alert,
     UnlockDatabase, PasswordStrengthBar, SearchBox],
   pipes: [MaskPasswordPipe, FilterPipe, OrderByPipe]
 })

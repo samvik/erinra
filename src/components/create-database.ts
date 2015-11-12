@@ -1,6 +1,9 @@
 import { Component, View, NgIf, FORM_DIRECTIVES} from 'angular2/angular2';
 import { Router, RouterLink } from 'angular2/router';
 import { GDriveStore } from '../utils/gdrive-store';
+
+import { Alert } from '../shared/alert';
+
 class Model {
   name : string;
   password : string;
@@ -11,7 +14,7 @@ class Model {
 })
 @View({
   templateUrl: 'src/components/create-database.html',
-  directives: [FORM_DIRECTIVES, NgIf, RouterLink]
+  directives: [FORM_DIRECTIVES, NgIf, RouterLink, Alert]
 })
 export class CreateDatabase {
 

@@ -8,13 +8,14 @@ import { OrderByPipe } from '../utils/order-by-pipe';
 import { FilterPipe } from '../utils/filter-pipe';
 
 import { SearchBox } from '../shared/search-box';
+import { Spinner } from '../shared/spinner';
 
 @Component({
   selector: 'database-list'
 })
 @View({
   templateUrl: 'src/components/database-list.html',
-  directives: [CORE_DIRECTIVES, RouterLink, SearchBox],
+  directives: [CORE_DIRECTIVES, RouterLink, SearchBox, Spinner],
   pipes: [OrderByPipe, FilterPipe]
 })
 export class DatabaseList {

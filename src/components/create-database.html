@@ -36,6 +36,5 @@
 </div>
 
 <div *ng-if="!store.isAuthenticated">
-  <p>You need to loggin before you can create databases.</p>
-  <p><a [router-link]="['/DatabaseRouter', 'DatabaseList']">Loggin</a></p>
+  <alert alert-type="warning" message="You need to authenticate before you can create a databases." />
 </div>

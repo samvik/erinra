@@ -3,6 +3,7 @@ import { Router, RouteParams } from 'angular2/router';
 import { GDriveStore } from '../utils/gdrive-store';
 import { Password } from '../utils/store';
 
+import { Alert } from '../shared/alert';
 import { PasswordStrengthBar } from '../shared/password-strength-bar';
 
 @Component({
@@ -10,7 +11,7 @@ import { PasswordStrengthBar } from '../shared/password-strength-bar';
 })
 @View({
   templateUrl: 'src/components/password-edit.html',
-  directives: [FORM_DIRECTIVES, NgIf, NgClass, PasswordStrengthBar]
+  directives: [FORM_DIRECTIVES, NgIf, NgClass, PasswordStrengthBar, Alert]
 })
 export class PasswordEdit {
   model : Password = <Password>{};

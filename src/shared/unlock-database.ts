@@ -9,7 +9,8 @@ class Model {
 })
 @View({
   templateUrl: 'src/shared/unlock-database.html',
-  directives: [FORM_DIRECTIVES]
+  directives: [FORM_DIRECTIVES],
+  styleUrls: ['src/shared/unlock-database.css']
 })
 export class UnlockDatabase {
 

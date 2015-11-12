@@ -1,4 +1,4 @@
-<h1>Database: {{title}}</h1>
+<h1>{{title}}</h1>
 
 <div *ng-if="state == State.UNLOCKED" class="row" style="margin-top:20px;margin-bottom:20px;">
   <div class="col-md-6">
@@ -13,18 +13,23 @@
 
 <div [ng-switch]="state">
   <template [ng-switch-when]="State.ERROR">
-    <span>Error: {{errorMessage}}</span>
+    <div style="margin: 100 auto; float: none; width: 400px">
+      <alert *ng-if="errorMessage != ''" alert-type="danger" [message]="errorMessage" />
+    </div>
   </template>
   <template [ng-switch-when]="State.NOT_LOADED">
-    <span>No database is loaded.</span>
+    <div style="margin: 100 auto; float: none; width: 400px">
+      <alert alert-type="warning" message="No database is loaded." />
+    </div>
   </template>
   <template [ng-switch-when]="State.LOADING">
-    <div>Loading...</div>
+    <spinner />
   </template>
   <template [ng-switch-when]="State.LOCKED">
-    <div>Database is locked, enter password to unlock.</div>
-    <div>{{errorMessage}}</div>
-    <unlock-database [db]="dbDesc" (on-unlock)="unlock($event)" />
+    <div style="margin: 100 auto; float: none; width: 400px">
+      <unlock-database [db]="dbDesc" (on-unlock)="unlock($event)"></unlock-database>
+      <alert *ng-if="errorMessage != ''" alert-type="danger" [message]="errorMessage" />
+    </div>
   </template>
   <template [ng-switch-when]="State.UNLOCKED">
     <div class="table-responsive">
