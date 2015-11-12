@@ -23,6 +23,10 @@ export class GDrive {
           (token : any) => {
             if (token && !token.error) {
               this.isAuthenticated = true;
+
+              // Renew in a bit
+              setInterval(() => this.authenticate(true), 0.75*token.expires_in*1000);
+
               resolve();
             }
             else if(token){
