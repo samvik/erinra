@@ -8,19 +8,21 @@ import { DatabaseList } from './database-list';
 import { DatabaseView } from './database-view';
 import { PasswordEdit } from './password-edit';
 
+import { Spinner } from '../shared/spinner';
+
 @Component({
   selector: 'database-router'
 })
 @View({
   templateUrl: 'src/components/database-router.html',
-  directives: [CORE_DIRECTIVES, RouterOutlet]
+  directives: [CORE_DIRECTIVES, RouterOutlet, Spinner],
+  styleUrls: ['src/components/database-router.css']
 })
 @RouteConfig([
   new Route({ path: '/', as: "DatabaseList", component: DatabaseList }),
   new Route({ path: '/:db', as: "DatabaseView", component: DatabaseView }),
   new Route({ path: '/:db/add', as: "PasswordAdd", component: PasswordEdit }),
   new Route({ path: '/:db/:id', as: "PasswordEdit", component: PasswordEdit })
-
 ])
 export class DatabaseRouter {
   private authInProgress: boolean = true;

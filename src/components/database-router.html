@@ -1,13 +1,16 @@
-
-
 <router-outlet *ng-if="store.isAuthenticated"></router-outlet>
 
 <div *ng-if="!authInProgress">
   <div *ng-if="!store.isAuthenticated">
-    <button (click)="authenticate()">Authenticate</button>
+
+    <div style="margin: 100 auto; float: none;  width: 191px">
+      <button (click)="authenticate()" class="google-button" >
+      </button>
+    </div>
+
   </div>
 </div>
 
 <div *ng-if="authInProgress">
-  Authenticating...
+  <spinner />
 </div>
