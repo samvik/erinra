@@ -6,15 +6,16 @@ import 'reflect-metadata';
 
 import 'bootstrap';
 import 'bootstrap/css/bootstrap.min.css!';
-import '../style.css!'
+import '../assets/css/style.css!'
 
 import 'font-awesome/css/font-awesome.min.css!';
 
-import { bootstrap, bind } from 'angular2/angular2';
+import { bootstrap, bind} from 'angular2/angular2';
 import { ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy } from 'angular2/router';
 import { HTTP_PROVIDERS } from 'angular2/http';
 
 import { Main } from './components/main';
+
 bootstrap(Main, [
   ROUTER_PROVIDERS,
   bind(LocationStrategy).toClass(HashLocationStrategy),

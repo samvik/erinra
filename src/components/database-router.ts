@@ -19,10 +19,10 @@ import { Spinner } from '../shared/spinner';
   styleUrls: ['src/components/database-router.css']
 })
 @RouteConfig([
-  new Route({ path: '/', as: "DatabaseList", component: DatabaseList }),
-  new Route({ path: '/:db', as: "DatabaseView", component: DatabaseView }),
-  new Route({ path: '/:db/add', as: "PasswordAdd", component: PasswordEdit }),
-  new Route({ path: '/:db/:id', as: "PasswordEdit", component: PasswordEdit })
+  { path: '/', as: "DatabaseList", component: DatabaseList },
+  { path: '/:db', as: "DatabaseView", component: DatabaseView },
+  { path: '/:db/add', as: "PasswordAdd", component: PasswordEdit },
+  { path: '/:db/:id', as: "PasswordEdit", component: PasswordEdit }
 ])
 export class DatabaseRouter {
   private authInProgress: boolean = true;

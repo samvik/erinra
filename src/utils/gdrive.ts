@@ -6,7 +6,6 @@ export class GDrive {
   public isAuthenticated : boolean = false;
 
   private scope : string = "https://www.googleapis.com/auth/drive.appfolder";
-  private apiKey : string = "AIzaSyDzc71edFxFuYd-GKmPzwb2ke5FNuszJMU";
   private clientId : string = "207628766456-2gg0dua0cnvc0a7b4jt5kjqiphh8imi6.apps.googleusercontent.com";
 
   public authenticate(immediate : boolean) : Promise<void> {
@@ -18,7 +17,6 @@ export class GDrive {
 
     return new Promise<void>(
       (resolve, reject) => {
-        gapi.client.setApiKey(this.apiKey);
         gapi.auth.authorize(config,
           (token : any) => {
             if (token && !token.error) {
